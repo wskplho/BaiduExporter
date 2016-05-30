@@ -86,7 +86,10 @@ var HOME =function(){
                 }
             })
             .fail(function(jqXHR, textStatus, errorThrown) {
-                setMessage("获取List失败!", "failure");
+                setMessage("获取List失败!重试", "failure");
+                setTimeout(function(){
+                    self.getSelectFold(fs_id)
+                },500)
                 console.log(jqXHR);
             });
         },
@@ -125,7 +128,10 @@ var HOME =function(){
                 }
             })
             .fail(function(jqXHR, textStatus, errorThrown) {
-                setMessage("获取List失败! code:92", "failure");
+                setMessage("获取List失败! code:92, 重试", "failure");
+                setTimeout(function(){
+                    self.getRecursiveFold(path)
+                },500)
                 console.log(jqXHR);
             });
             function delayLoopList(path,time){
@@ -164,10 +170,7 @@ var HOME =function(){
                 setMessage("获取文件信息成功!", "success");
                 var file=json.dlink;
                 var file_list = [];
-                //备用下载地址
-              //  var dlink ="http://"+"d.pcs.baidu.com"+"/rest/2.0/pcs/file?app_id=250528&method=download&check_blue=1&ec=1&path="+encodeURIComponent(target)+"&psl=216&taskcount=1&urlcount=3&p2sspd=86016";
-
-                    //这里文件名的操作是为了下载到相应的路径中去
+                //这里文件名的操作是为了下载到相应的路径中去
                 var name = file_path == undefined ? file_name :file_path.slice(curr_path.length+1,file_path.length);
                 file_list.push({"name":self.getPath() + name, "link":file[0].dlink});
                 if(MODE =="TXT"){
@@ -179,7 +182,10 @@ var HOME =function(){
                 }
             })
             .fail(function(jqXHR, textStatus, errorThrown) {
-                setMessage("获取File失败!", "failure");
+                setMessage("获取File失败!重试", "failure");
+                setTimeout(function(){
+                    self.getFileById(fs_id,file_name,file_path)
+                },500)
                 console.log(jqXHR);
             });
         },
@@ -213,6 +219,9 @@ var HOME =function(){
             })
             .fail(function(jqXHR, textStatus, errorThrown) {
                 setMessage("获取File失败!", "failure");
+                setTimeout(function(){
+                    self.getFilemetas(target)
+                },500)
                 console.log(jqXHR);
             });
         },
