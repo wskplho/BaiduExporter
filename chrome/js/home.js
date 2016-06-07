@@ -13,7 +13,7 @@ var HOME =function(){
     var MODE="RPC";
     var RPC_PATH="http://localhost:6800/jsonrpc";
     var encode = new Function("return " + yunData.sign2)();
-    var sign = btoa(encode(yunData.sign4, yunData.sign1)) ;
+    var sign = btoa(encode(yunData.sign5, yunData.sign1)) ;
     var list = require("system-core:context/context.js").instanceForSystem.list;
     return {
         //绑定事件
